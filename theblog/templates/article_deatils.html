@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+
+{% block tittle%} {{ post.tittle_tag }} {% endblock %}
+
+{% block content %}
+
+<h1>{{ post.tittle }}</h1>
+
+<small>By: {{ post.author.first_name }} {{ post.author.last_name }} - 
+	{{ post.post_date}}
+	{% if user == post.author %}
+		</small><a href="{% url 'update_post' post.pk %}">(Edit)</a> / 
+		<a href="{% url 'delete_post' post.pk %}">(Delete)</a>
+	{% endif %}
+<br><hr><br>
+{% if user.is_authenticated %}
+
+
+	{{ post.body | safe }}
+{% else %}
+		Please! <strong>Login</strong> first or register to see our blogs.
+{% endif %}
+<br></br>
+
+
+
+<a href="{% url 'home' %}" class="btn btn-secondary">Back To Home</a>
+
+{% endblock %}
